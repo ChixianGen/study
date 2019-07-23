@@ -16,6 +16,6 @@ public class StudyApplication {
 
     @GetMapping("hello")
     public String hello() {
-        return "h";
+        return "hello cxg";
     }
 }
