@@ -16,4 +16,12 @@ Thread.Sleep(0)的作用，就是“触发操作系统立刻重新进行一次CP
 Thread.sleep()和 Object.wait() 有什么区别?
 1、sleep来自Thread类，和wait来自Object类；
 2、sleep方法没有释放锁，而wait方法释放了锁，使得其他线程可以使用同步控制块或者方法。
-3、wait，notify和notifyAll只能在同步控制方法或者同步控制块里面使用，而sleep可以在任何地方使用
+3、wait，notify和notifyAll只能在同步控制方法或者同步控制块里面使用，而sleep可以在任何地方使用。
+
+
+高并发程序的要求：
+1、原子性；
+2、有序性；
+3、可见性；
+
+注：volatile关键字仅满足了--> 有序性、可见性；
