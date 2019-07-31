@@ -11,6 +11,7 @@ public class SimpleEncrypt {
 //        test1();
         byte[] bytes = new byte[] {88, 56, 27};
         System.out.println(new String(bytes, Charset.defaultCharset()));
+
     }
 
     private static void test1() {
