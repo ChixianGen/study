@@ -28,7 +28,7 @@ public class LoaderTest {
 //        Demo[] demos = new Demo[5];
 
         // final修饰；final修饰的变量属于常量，或被放入常量池中；（仅包含编译时能直接确定的值）
-//        System.out.println(Demo.a);
+//        System.out.println(Demo.produce);
         // 如果时编译时无法确定的值，需要在运行时去计算。如b，则会导致类的初始化；
 //        System.out.println(Demo.b);
 

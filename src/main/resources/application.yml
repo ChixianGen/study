@@ -1,5 +1,16 @@
+server:
+  port: 8080
+
+# 消息队列相关配置
 spring:
   activemq:
     broker-url: tcp://192.168.0.22:61616
     user: admin
     password: admin
+  jms:
+    pub-sub-domain: true   # false=Queue true=Topic  默认为：false
+
+myqueue: boot-activemq-queue # 自定义队列名称
+mytopic: boot-activemq-topic # 自定义主题名称
+
+###########

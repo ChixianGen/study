@@ -101,7 +101,7 @@
         Session session = connection.createSession(false, Session.DUPS_OK_ACKNOWLEDGE);
         ```
     - 开启事务情况：
-    > 开启事务后，签收模式无效了，默认就是 0；
+    > 开启事务后，签收模式无效了，因为默认就是 0；
     ```
         源码如下：
         public Session createSession(boolean transacted, int acknowledgeMode) throws JMSException {
@@ -114,3 +114,24 @@
             return new ActiveMQSession(this, this.getNextSessionId(), transacted ? 0 : acknowledgeMode, this.isDispatchAsync(), this.isAlwaysSessionAsync());
         }
     ```
+> #### 事务和签收的关系：
+> - 在事务性会话中，当一个事务被成功提交则消息被自动签收；如果事务回滚，则消息会被再次传送；
+> - 在非事务性会话中，消息何时被确认取决于创建session会话时设置的应答模式；
+
+### JMS的发布/订阅总结
+- 非持久订阅
+    > 只有当某个主题的消费者（客户端）存在并与MQ服务器保持正常连接状态时，该主题的生产者生产的消息才会被消费；否则消息会被作废；
+- 持久化订阅
+    > 消费者（客户端）先向MQ服务器注册自己，当客户端离线（宕机）后，MQ服务器会为这个客户端保留所有的订阅消息；当客户端恢复连接时，会收到所有在离线期间生产者发布的订阅消息；
+> - 非持久状态下，不能恢复或重新发送一个未签收的消息；
+> - 持久订阅才能恢复或重新发送一个未签收的消息；
+> - 如果所有消息都必须被消费，需要持久订阅；如果容忍丢失消息，则可以使用非持久订阅；
+
+### activeMQ的传输协议
+- TCP：默认协议；
+- NIO：基于TCP之上，进行了扩展和优化，有更好的扩展性；
+> 以下协议不常用
+- UDP
+- SSL
+- HTTP(S)
+

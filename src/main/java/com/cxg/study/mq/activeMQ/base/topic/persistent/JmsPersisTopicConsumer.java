@@ -1,4 +1,4 @@
-package com.cxg.study.mq.activeMQ.topic.persistent;   // Administrator 于 2019/7/31 创建;
+package com.cxg.study.mq.activeMQ.base.topic.persistent;   // Administrator 于 2019/7/31 创建;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
