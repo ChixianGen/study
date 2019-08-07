@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <marshalling.version>2.0.7.Final</marshalling.version>
     </properties>
 
     <dependencies>
@@ -47,12 +48,28 @@
             <artifactId>spring-boot-starter-activemq</artifactId>
         </dependency>
 
-
+        <!-- netty相关 -->
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling</artifactId>
+            <version>${marshalling.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling-serial</artifactId>
+            <version>${marshalling.version}</version>
+        </dependency>
 
+
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
     </dependencies>
 
 
