@@ -1,8 +1,10 @@
 package com.cxg.study.socket.netty.base;
 
 import com.cxg.study.socket.base.udp.Person;
+import com.google.common.base.Strings;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
@@ -11,17 +13,11 @@ import io.netty.util.CharsetUtil;
 
 public class HelloNetty {
     public static void main(String[] args) {
-        new NettyServer(8888).serverStart();
+        new NettyServer().serverStart();
     }
 }
 
 class NettyServer {
-    private int port;
-
-    public NettyServer(int port) {
-        this.port = port;
-    }
-
     public void serverStart() {
         // 负责连接；
         EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -32,6 +28,10 @@ class NettyServer {
 
         b.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
+                .option(ChannelOption.SO_BACKLOG, 1024) // 设置 tcp 缓冲区；
+                .option(ChannelOption.SO_SNDBUF, 1024 * 10) // 设置发送缓冲大小
+                .option(ChannelOption.SO_RCVBUF, 1024 * 10) // 设置接收缓冲大小
+                .option(ChannelOption.SO_KEEPALIVE, true) // 保持连接
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) {
@@ -39,9 +39,12 @@ class NettyServer {
                     }
                 });
         try {
-            ChannelFuture f = b.bind(port).sync();
+            // 可绑定多个端口；
+            ChannelFuture channelFuture1 = b.bind(8888).sync();
+            ChannelFuture channelFuture2 = b.bind(9999).sync();
 
-            f.channel().closeFuture().sync();
+            channelFuture1.channel().closeFuture().sync(); // 阻塞状态，服务器一直存活，等待关闭；
+            channelFuture2.channel().closeFuture().sync(); // 阻塞状态，服务器一直存活，等待关闭；
         } catch (InterruptedException e) {
         } finally {
             workerGroup.shutdownGracefully();
@@ -53,21 +56,15 @@ class NettyServer {
 class Handler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        //super.channelRead(ctx, msg);
         System.out.println("server: channel read");
         ByteBuf buf = (ByteBuf) msg;
         String string = buf.toString(CharsetUtil.UTF_8);
         System.out.printf("客户端请求数据：【%s】\n", string);
 
-        Person person = new Person(88, string, 88888);
-        ChannelFuture channelFuture = ctx.writeAndFlush(string);
-        channelFuture.addListener(future -> {
-           assert channelFuture == future;
-           ctx.close();
-        });
-        System.out.println("服务端响应完成。。。。。。。。。。。。。");
-//        ctx.close();
-        //buf.release();
+        // 模拟响应；
+        ctx.writeAndFlush(Unpooled.copiedBuffer("hello client".getBytes()))
+                // 服务端成功响应后自动断开连接；
+                .addListener(ChannelFutureListener.CLOSE);
     }
 
     @Override
