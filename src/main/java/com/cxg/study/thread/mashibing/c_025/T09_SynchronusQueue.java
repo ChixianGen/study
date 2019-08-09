@@ -1,4 +1,4 @@
-﻿package com.cxg.study.thread.mashibing.c_025;
+package com.cxg.study.thread.mashibing.c_025;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.SynchronousQueue;

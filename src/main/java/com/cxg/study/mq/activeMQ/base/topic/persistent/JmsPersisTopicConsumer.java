@@ -14,7 +14,7 @@ public class JmsPersisTopicConsumer {
     private static final String TOPIC_NAME = "topic_persistent";
 
     public static void main(String[] args) throws JMSException {
-//        System.out.println("A-消费者");
+//        System.out.println("AB-消费者");
         System.out.println("B-消费者"); // 启动2次，模拟2个消费者
 
         // 1.创建连接工程；用户名和密码默认；

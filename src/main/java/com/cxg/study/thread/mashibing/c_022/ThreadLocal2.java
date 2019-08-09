@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ThreadLocal线程局部变量
  *
  * ThreadLocal是使用空间换时间，synchronized是使用时间换空间

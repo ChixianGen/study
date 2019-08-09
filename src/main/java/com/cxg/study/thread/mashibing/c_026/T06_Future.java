@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 认识future
  */
 package com.cxg.study.thread.mashibing.c_026;

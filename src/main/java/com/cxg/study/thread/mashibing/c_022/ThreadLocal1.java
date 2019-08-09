@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ThreadLocal线程局部变量
  * 
  * @author 马士兵

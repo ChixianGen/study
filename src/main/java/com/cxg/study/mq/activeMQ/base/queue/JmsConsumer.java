@@ -13,7 +13,7 @@ public class JmsConsumer {
 
     public static void main(String[] args) throws JMSException, InterruptedException {
 
-        System.out.println("A-消费者");
+        System.out.println("AB-消费者");
 //        System.out.println("B-消费者"); // 启动2次，模拟2个消费者
 
         // 1.创建连接工程；用户名和密码默认；

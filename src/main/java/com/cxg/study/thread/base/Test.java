@@ -12,7 +12,7 @@ public class Test {
     public static void main(String args[]) {
 //        test1();
 //        test2();
-        test3();
+//        test3();
     }
 
     // 自定义线程中断标记

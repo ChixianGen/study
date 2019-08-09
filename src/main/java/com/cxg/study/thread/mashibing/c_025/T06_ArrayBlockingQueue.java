@@ -1,4 +1,4 @@
-﻿package com.cxg.study.thread.mashibing.c_025;
+package com.cxg.study.thread.mashibing.c_025;
 
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;

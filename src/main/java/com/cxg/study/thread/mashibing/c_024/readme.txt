@@ -1,4 +1,4 @@
-﻿同步容器类
+同步容器类
 
 1：Vector Hashtable ：早期使用synchronized实现 
 2：ArrayList HashSet ：未考虑多线程安全（未实现同步）

@@ -1,4 +1,4 @@
-﻿package com.cxg.study.thread.mashibing.c_026;
+package com.cxg.study.thread.mashibing.c_026;
 
 import java.util.Random;
 import java.util.concurrent.Executors;
