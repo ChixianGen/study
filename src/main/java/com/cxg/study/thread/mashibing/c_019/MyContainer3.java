@@ -62,6 +62,7 @@ public class MyContainer3 {
 		new Thread(() -> {
 			System.out.println("t1启动");
 			synchronized(lock) {
+				System.out.printf("【】进入同步块", Thread.currentThread().getName());
 				for(int i=0; i<10; i++) {
 					c.add(new Object());
 					System.out.println("add " + i);
