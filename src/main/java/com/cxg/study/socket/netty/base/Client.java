@@ -1,6 +1,5 @@
 package com.cxg.study.socket.netty.base;
 
-import com.cxg.study.socket.base.udp.Person;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -34,8 +33,8 @@ public class Client {
             ChannelFuture channelFuture2 = b.connect("127.0.0.1", 9999).sync();
 
             System.out.println("阻塞地监听关闭事件");
-            channelFuture1.channel().closeFuture().sync(); // 可理解为阻塞监听连接状态事件；
-            channelFuture2.channel().closeFuture().sync(); // 可理解为阻塞监听连接状态事件；
+            channelFuture1.channel().closeFuture().sync(); // 可理解为阻塞监听关闭状态事件；
+            channelFuture2.channel().closeFuture().sync();
             System.out.println("监听到关闭事件，断开连接，释放资源");
         } catch (InterruptedException e) {
             e.printStackTrace();

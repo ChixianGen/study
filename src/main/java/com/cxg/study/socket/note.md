@@ -20,3 +20,6 @@
 ### Netty
 > - 底层是基于 NIO(NON-BLOCKING) 模型；
 > - Linux系统的AIO（异步IO）模型底层仍然是基于NIO；
+- NioEventLoopGroup：线程组默认大小为cpu内核数 * 2；
+- FastThreadLocalThread extends Thread：Netty底层使用的线程；
+- ThreadPerTaskExecutor implements Executor：保存线程的执行器；

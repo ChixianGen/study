@@ -42,3 +42,4 @@ flip方法将Buffer从写模式切换到读模式。调用flip()方法会将posi
 > - ShortBuffer
 ---
 - #### Selectors
+    - SelectionKey.OP_WRITE：表示底层缓冲区是否有空间，如果有则返回true；

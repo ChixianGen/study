@@ -59,17 +59,12 @@ public class Server {
                 if (len != -1) {
                     string = new String(buffer.array(), 0, len);
                     System.out.printf("客户端请求的消息：【%s】\n", string);
+                    ByteBuffer bufferToWrite = ByteBuffer.wrap("返回给客户端的数据".getBytes());
+                    sc.write(bufferToWrite);
+                } else {
+                    System.out.println("客户端关闭了");
+                    key.cancel(); // 防止客户端关闭后出现死循环；
                 }
-                sc.register(key.selector(), SelectionKey.OP_WRITE);
-            } catch (IOException e) {
-            }
-        } else if (key.isWritable()) {
-            System.out.println("=============isWritable==============");
-            try {
-                SocketChannel sc = (SocketChannel) key.channel();
-                ByteBuffer bufferToWrite = ByteBuffer.wrap("e".getBytes());
-                sc.write(bufferToWrite);
-                sc.close();
             } catch (IOException e) {
             }
         }
