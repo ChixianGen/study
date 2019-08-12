@@ -12,7 +12,6 @@ public class CountDownLaunchDemo {
 
     public void countDown() {
         synchronized (this) {
-            System.out.printf("进入countDown同步块的线程：【%s】。\n", Thread.currentThread().getName());
             this.counter++;
             this.notifyAll();
         }
@@ -21,7 +20,7 @@ public class CountDownLaunchDemo {
     public void await() throws InterruptedException {
         synchronized (this) {
             while (counter < total) {
-                System.out.printf("进入await同步块的线程：【%s】。\n", Thread.currentThread().getName());
+//                System.out.printf("进入await同步块的线程：【%s】。\n", Thread.currentThread().getName());
                 this.wait();
             }
         }

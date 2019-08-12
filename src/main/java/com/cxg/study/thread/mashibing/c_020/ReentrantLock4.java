@@ -22,7 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class ReentrantLock4 {
 		
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		Lock lock = new ReentrantLock();
 		
 		
@@ -30,6 +30,7 @@ public class ReentrantLock4 {
 			try {
 				lock.lock();
 				System.out.println("t1 start");
+//				TimeUnit.SECONDS.sleep(2);
 				TimeUnit.SECONDS.sleep(Integer.MAX_VALUE);
 				System.out.println("t1 end");
 			} catch (InterruptedException e) {
@@ -39,18 +40,25 @@ public class ReentrantLock4 {
 			}
 		});
 		t1.start();
+
+		TimeUnit.SECONDS.sleep(2);
 		
 		Thread t2 = new Thread(()->{
+			boolean lc = false;
 			try {
 				//lock.lock();
 				lock.lockInterruptibly(); //可以对interrupt()方法做出响应
+				lc = true;
 				System.out.println("t2 start");
 				TimeUnit.SECONDS.sleep(5);
 				System.out.println("t2 end");
 			} catch (InterruptedException e) {
-				System.out.println("interrupted!");
+				System.out.println("t2 --> interrupted!");
 			} finally {
-				lock.unlock();
+				System.out.println("lc:" + lc);
+				if (lc) {
+					lock.unlock();
+				}
 			}
 		});
 		t2.start();

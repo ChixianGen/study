@@ -14,7 +14,7 @@
 * sleep来自Thread类，和wait来自Object类；
 * sleep方法没有释放锁，而wait方法释放了锁，使得其他线程可以进入同步控制块或者方法。
 * wait，notify和notifyAll只能在同步控制方法或者同步控制块里面使用，而sleep可以在任何地方使用。
-
+* notify和notifyAll都不会立即释放锁资源；
 ***
 高并发程序的要求：
 1. 原子性：
