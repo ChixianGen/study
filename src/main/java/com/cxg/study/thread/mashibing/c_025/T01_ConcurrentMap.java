@@ -1,43 +1,49 @@
 /**
- * http://blog.csdn.net/sunxianghuang/article/details/52221913 
+ * http://blog.csdn.net/sunxianghuang/article/details/52221913
  * http://www.educity.cn/java/498061.html
  * 阅读concurrentskiplistmap
  */
 package com.cxg.study.thread.mashibing.c_025;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.CountDownLatch;
 
 public class T01_ConcurrentMap {
-	public static void main(String[] args) {
-		//Map<String, String> map = new ConcurrentHashMap<>();
-		Map<String, String> map = new ConcurrentSkipListMap<>(); //高并发并且排序
-		
-		//Map<String, String> map = new Hashtable<>();
-		//Map<String, String> map = new HashMap<>(); //Collections.synchronizedXXX
-		//TreeMap
-		Random r = new Random();
-		Thread[] ths = new Thread[100];
-		CountDownLatch latch = new CountDownLatch(ths.length);
-		long start = System.currentTimeMillis();
-		for(int i=0; i<ths.length; i++) {
-			ths[i] = new Thread(()->{
-				for(int j=0; j<10000; j++) map.put("a" + r.nextInt(100000), "a" + r.nextInt(100000));
-				latch.countDown();
-			});
-		}
-		
-		Arrays.asList(ths).forEach(t->t.start());
-		try {
-			latch.await();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		long end = System.currentTimeMillis();
-		System.out.println(end - start);
-	}
+    public static void main(String[] args) {
+        Map<String, String> map1 = new ConcurrentHashMap<>();
+        Map<String, String> map2 = new ConcurrentSkipListMap<>(); //高并发并且排序
+        Map<String, String> map3 = new Hashtable<>();
+        Map<String, String> map4 = new HashMap<>(); //Collections.synchronizedXXX
+        Map<String, String> map5 = new TreeMap<>(); //Collections.synchronizedXXX
+        test(map1, "ConcurrentHashMap");
+        test(map2, "ConcurrentSkipListMap");
+        test(map3, "Hashtable");
+        test(map4, "HashMap");
+        test(map5, "TreeMap");
+    }
+
+    private static void test(Map<String, String> map, String string) {
+        Random r = new Random();
+        Thread[] ths = new Thread[100];
+        CountDownLatch latch = new CountDownLatch(ths.length);
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < ths.length; i++) {
+            ths[i] = new Thread(() -> {
+                for (int j = 0; j < 10000; j++) map.put("a" + r.nextInt(100000), "a" + r.nextInt(100000));
+                latch.countDown();
+            });
+        }
+
+        Arrays.asList(ths).forEach(t -> t.start());
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long end = System.currentTimeMillis();
+        System.out.printf("[%s] --> [%s]\n", string, end - start);
+    }
 }

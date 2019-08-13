@@ -12,7 +12,7 @@ public class SimpleServerDemo {
         baseTest1();
     }
 
-    private static void baseTest1() throws IOException, InterruptedException {
+    public static void baseTest1() throws IOException {
         ServerSocket serverSocket = new ServerSocket(IP_PORT);
         // 阻塞式等待；一次accept就相当于一个客户端连接；
         Socket client = serverSocket.accept();
@@ -20,7 +20,6 @@ public class SimpleServerDemo {
         DataInputStream dis = new DataInputStream(client.getInputStream());
         String string = dis.readUTF();
         System.out.printf("========服务器接收到的数据：【%s】============\n", string);
-        Thread.sleep(2000);
 
         DataOutputStream dos = new DataOutputStream(client.getOutputStream());
         dos.writeUTF("服务端响应的数据：" + string);

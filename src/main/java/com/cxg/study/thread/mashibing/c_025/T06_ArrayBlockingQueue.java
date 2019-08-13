@@ -15,9 +15,9 @@ public class T06_ArrayBlockingQueue {
 			strs.put("a" + i);
 		}
 		
-		strs.put("aaa"); //满了就会等待，程序阻塞
-		//strs.add("aaa");
-		//strs.offer("aaa");
+//		strs.put("aaa"); //满了就会等待，程序阻塞
+//		strs.add("aaa"); // 满了就会抛出异常
+		strs.offer("aaa"); // 满了不会添加，返回 false
 		//strs.offer("aaa", 1, TimeUnit.SECONDS);
 		
 		System.out.println(strs);

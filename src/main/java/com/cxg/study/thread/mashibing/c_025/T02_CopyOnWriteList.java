@@ -17,8 +17,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class T02_CopyOnWriteList {
 	public static void main(String[] args) {
 		List<String> lists = 
-				//new ArrayList<>(); //这个会出并发问题！
-				//new Vector();
+//				new ArrayList<>(); //这个会出并发问题！
+//				new Vector();
 				new CopyOnWriteArrayList<>();
 		Random r = new Random();
 		Thread[] ths = new Thread[100];
