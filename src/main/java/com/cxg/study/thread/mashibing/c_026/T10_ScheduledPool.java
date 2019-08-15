@@ -1,6 +1,6 @@
 package com.cxg.study.thread.mashibing.c_026;
 
-import java.util.Random;
+import java.time.LocalDateTime;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -10,11 +10,11 @@ public class T10_ScheduledPool {
 		ScheduledExecutorService service = Executors.newScheduledThreadPool(4);
 		service.scheduleAtFixedRate(()->{
 			try {
-				TimeUnit.MILLISECONDS.sleep(new Random().nextInt(1000));
+				TimeUnit.MILLISECONDS.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			System.out.println(Thread.currentThread().getName());
+			System.out.println(Thread.currentThread().getName() + " --> " + LocalDateTime.now());
 		}, 0, 500, TimeUnit.MILLISECONDS);
 		
 	}

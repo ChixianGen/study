@@ -3,9 +3,8 @@ package com.cxg.study.mq.activeMQ.springboot;   // Administrator äºŽ 2019/7/31 å
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class ApplicationContextProvider implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;

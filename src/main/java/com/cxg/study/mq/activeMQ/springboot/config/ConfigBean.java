@@ -3,11 +3,10 @@ package com.cxg.study.mq.activeMQ.springboot.config;   // Administrator 于 2019
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 import javax.jms.Queue;
 
-@Component
+//@Component
 public class ConfigBean {
 
     @Value("${myqueue}")

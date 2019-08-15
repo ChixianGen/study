@@ -5,6 +5,12 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 一个单向链表+两把锁+两个条件
+ * 两把锁，一把用于入队，一把用于出队，有效的避免了入队与出队时使用一把锁带来的竞争。
+ * 在入队与出队都高并发的情况下，性能比ArrayBlockingQueue高很多
+ * 采用了链表，最大容量为整数最大值，可看做容量无限
+ */
 public class T05_LinkedBlockingQueue {
 
 	static BlockingQueue<String> strs = new LinkedBlockingQueue<>(50);

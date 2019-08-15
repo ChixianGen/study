@@ -1,5 +1,5 @@
 /**
- *
+ *	newWorkStealingPool中的线程是 -- daemon线程（守护线程）
  */
 package com.cxg.study.thread.mashibing.c_026;
 
@@ -16,7 +16,7 @@ public class T11_WorkStealingPool {
 		service.execute(new R(1000));
 		service.execute(new R(2000));
 		service.execute(new R(2000));
-		service.execute(new R(2000)); //daemon
+		service.execute(new R(2000));
 		service.execute(new R(2000));
 		
 		//由于产生的是精灵线程（守护线程、后台线程），主线程不阻塞的话，看不到输出

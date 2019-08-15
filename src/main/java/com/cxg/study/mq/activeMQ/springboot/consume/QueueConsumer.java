@@ -1,12 +1,11 @@
 package com.cxg.study.mq.activeMQ.springboot.consume;   // Administrator 于 2019/8/1 创建;
 
 import org.springframework.jms.annotation.JmsListener;
-import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
-@Component
+//@Component
 public class QueueConsumer {
 
     @JmsListener(destination = "${myqueue}")

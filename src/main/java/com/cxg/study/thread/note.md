@@ -51,5 +51,7 @@
 
 > 注：volatile关键字仅满足了--> 有序性（禁止重排序）、可见性（内存）；保证原子性需要借助synchronized锁机制；
 ---
-### synchronized
+### synchronized与volatile
 > synchronized方法或代码块中，如果发生异常，则当前的执行线程会释放锁资源；解决方案：try-catch处理；
+- volatile — 保证读写的都是主内存的变量；
+- synchronized — 保证在块或方法开始时都同步主内存的值到工作内存，而块或方法结束时将变量同步回主内存；

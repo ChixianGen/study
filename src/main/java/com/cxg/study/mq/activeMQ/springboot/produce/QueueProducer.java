@@ -3,12 +3,11 @@ package com.cxg.study.mq.activeMQ.springboot.produce;   // Administrator 于 201
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import javax.jms.Queue;
 import java.util.UUID;
 
-@Component
+//@Component
 public class QueueProducer {
 
     @Autowired

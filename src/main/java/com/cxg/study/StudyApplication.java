@@ -15,6 +15,9 @@ public class StudyApplication {
 
     @GetMapping("hello")
     public String hello() {
-        return "hello cxg";
+        System.out.println(123);
+        return "hello cxg ngrok new jrebel";
     }
 }
+
+
