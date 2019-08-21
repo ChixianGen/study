@@ -19,6 +19,10 @@ public class AtomicIntegerDemo {
         System.out.println(atomicInteger.get());
         atomicInteger.lazySet(45);
         System.out.println(atomicInteger.incrementAndGet());
+
+        boolean success = atomicInteger.compareAndSet(46, 55);
+        System.out.println(success);
+        System.out.println(atomicInteger.get());
         /*for (int i = 0; i < 10; i++) {
             System.out.println(atomicInteger.getAndIncrement());
         }*/

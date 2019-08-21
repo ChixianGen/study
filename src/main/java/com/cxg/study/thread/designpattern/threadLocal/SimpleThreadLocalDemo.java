@@ -11,10 +11,11 @@ import java.util.stream.Stream;
 public class SimpleThreadLocalDemo {
 //    static final ThreadLocal<String> THREAD_LOCAL = new ThreadLocal<>();
     static final InheritableThreadLocal<String> THREAD_LOCAL = new InheritableThreadLocal();
+    static final InheritableThreadLocal<String> THREAD_LOCAL_1 = new InheritableThreadLocal();
 
     public static void main(String[] args) throws InterruptedException {
-//        test1();
-        test2();
+        test1();
+//        test2();
     }
 
     private static void test2() throws InterruptedException {
@@ -33,7 +34,9 @@ public class SimpleThreadLocalDemo {
 
     private static void test1() throws InterruptedException {
         THREAD_LOCAL.set("hello");
+        THREAD_LOCAL_1.set("world");
         Thread.sleep(2000);
+        System.out.println(THREAD_LOCAL_1.get());
         System.out.println(THREAD_LOCAL.get());
     }
 }
