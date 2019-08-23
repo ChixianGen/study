@@ -11,6 +11,7 @@ public class Test {
     }
 
     private static void test1() throws InterruptedException {
+//        CountDownLatch latch = new CountDownLatch(21);
         CountDownLaunchDemo latch = new CountDownLaunchDemo(21);
         IntStream.rangeClosed(0,20).forEach(i -> {
             new Thread(() -> {
@@ -19,12 +20,16 @@ public class Test {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                latch.countDown();
                 System.out.printf("进入countDown同步块的线程：【%s】。\n", Thread.currentThread().getName());
+                latch.countDown();
             }, "t_" + i).start();
         });
-        latch.await();
 
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("=======================");
     }
 }

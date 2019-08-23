@@ -1,4 +1,4 @@
-package com.cxg.study.thread.lock;   // Administrator 于 2019/8/14 创建;
+package com.cxg.study.thread.cuncurrent.lock;   // Administrator 于 2019/8/14 创建;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;

@@ -1,4 +1,4 @@
-package com.cxg.study.thread.lock.customlock;   // Administrator 于 2019/8/20 创建;
+package com.cxg.study.thread.cuncurrent.lock.customlock;   // Administrator 于 2019/8/20 创建;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -8,15 +8,15 @@ import java.util.concurrent.TimeUnit;
 public class LockTest {
 
     static final CASLock casLock = new CASLock();
+
 //    static final ReentrantLock casLock = new ReentrantLock();
 
     public static void main(String[] args) {
-        Thread.currentThread().isInterrupted();
         test1();
     }
 
     private static void test1() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             new Thread(() -> {
                 try {
 //                    doSomething();

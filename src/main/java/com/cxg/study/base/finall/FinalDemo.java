@@ -1,6 +1,9 @@
 package com.cxg.study.base.finall;   // Administrator 于 2019/8/21 创建;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 public class FinalDemo {
 
@@ -18,11 +21,23 @@ public class FinalDemo {
     }
 
     public static void main(String[] args) {
+        Person person = new Person("aaa");
+        todo(person);
+        System.out.println(person);
+    }
 
+    private static void todo(final Person ps) {
+        ps.setName("cxg");
+
+// final参数不能修改参数值；这里对象参数ps的参数值是调用方（这里是main函数）person对象的堆内存地址的拷贝，也就是内存地址；
+//        person = new Person("smg");
     }
 }
 
 @Data
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 class Person{
     private String name;
 }

@@ -1,4 +1,4 @@
-package com.cxg.study.thread.lock.customlock;   // Administrator 于 2019/8/20 创建;
+package com.cxg.study.thread.cuncurrent.lock.customlock;   // Administrator 于 2019/8/20 创建;
 
 public class GetLockException extends Exception {
 

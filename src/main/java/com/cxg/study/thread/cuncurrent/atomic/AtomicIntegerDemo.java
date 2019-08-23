@@ -1,4 +1,4 @@
-package com.cxg.study.thread.java8.atomic;   // 16612 于 2019/8/13 创建;
+package com.cxg.study.thread.cuncurrent.atomic;   // 16612 于 2019/8/13 创建;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

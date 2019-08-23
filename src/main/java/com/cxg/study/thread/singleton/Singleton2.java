@@ -7,7 +7,7 @@ public class Singleton2 {
     }
 
     private static class SingletonHolder {
-        private final static Singleton2 INSTANCE = new Singleton2();
+        private static Singleton2 INSTANCE = new Singleton2();
     }
 
 }
