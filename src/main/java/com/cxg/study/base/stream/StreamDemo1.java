@@ -5,6 +5,13 @@ import java.util.stream.IntStream;
 
 public class StreamDemo1 {
     public static void main(String[] args) {
+        Integer i = 100;
+        Integer j = 100;
+        System.out.print(i == j); //true
+
+        Integer i1 = 128;
+        Integer j1 = 128;
+        System.out.print(i1 == j1); //false
 //        test1();
 //        System.out.println("\n------------------------------");
 //        test2();

@@ -10,7 +10,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
-
+import io.netty.util.CharsetUtil;
 
 public class HelloNetty {
     public static void main(String[] args) {
@@ -45,9 +45,9 @@ class NettyServer {
                         pipeline.addLast(new DelimiterBasedFrameDecoder(1024, byteBuf));
 
                         // 解析string类型的数据
-                        pipeline.addLast(new StringDecoder());
+                        pipeline.addLast(new StringDecoder(CharsetUtil.UTF_8));
                         // 可以直接写入string类型数据；
-                        pipeline.addLast(new StringEncoder());
+                        pipeline.addLast(new StringEncoder(CharsetUtil.UTF_8));
 
                         // 添加自己的消息处理器；
                         pipeline.addLast(new Handler());
