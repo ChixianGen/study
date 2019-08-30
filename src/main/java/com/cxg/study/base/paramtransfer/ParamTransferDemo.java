@@ -3,26 +3,28 @@ package com.cxg.study.base.paramtransfer;   // Administrator 于 2019/8/21 创�
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 
+import java.util.Arrays;
+
 /**
  * 参数传递示例
  */
 public class ParamTransferDemo {
     public static void main(String[] args) {
 //        baseDataType();
-        refDataType();
-//        arrayDataTest();
+//        refDataType();
+        arrayDataTest();
     }
 
     private static void arrayDataTest() {
         String[] strings = {"a", "b"};
-        System.out.printf("add()方法调用前的对象：【%s】，hashcode：【%s】\n", strings, strings.hashCode());
+        System.out.printf("add()方法调用前的对象：【%s】，hashcode：【%s】\n", Arrays.toString(strings), strings);
         add(strings);
-        System.out.printf("add()方法调用后的对象：【%s】，hashcode：【%s】\n", strings, strings.hashCode());
+        System.out.printf("add()方法调用后的对象：【%s】，hashcode：【%s】\n", Arrays.toString(strings), strings);
     }
 
     private static void add(String[] strings) {
         strings[0] = "c";
-        System.out.printf("add()方法内部的对象：【%s】，hashcode：【%s】\n", strings, strings.hashCode());
+        System.out.printf("add()方法内部的对象：【%s】，hashcode：【%s】\n", Arrays.toString(strings), strings);
     }
 
     /**

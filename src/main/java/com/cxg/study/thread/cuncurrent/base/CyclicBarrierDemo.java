@@ -1,7 +1,6 @@
 package com.cxg.study.thread.cuncurrent.base;   // Administrator 于 2019/8/23 创建;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
 
 import java.util.Random;
 import java.util.concurrent.CyclicBarrier;
@@ -13,10 +12,13 @@ import java.util.stream.IntStream;
 @Slf4j
 public class CyclicBarrierDemo {
 
-    private Random random = new Random(System.currentTimeMillis());
+    private static Random random = new Random(System.currentTimeMillis());
 
-    @Test
-    public void test1() throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
+        test1();
+    }
+
+    public static void test1() throws InterruptedException {
         CyclicBarrier cyclicBarrier = new CyclicBarrier(2, () -> {
             log.debug("当前任务已全部结束");
         });
@@ -32,7 +34,5 @@ public class CyclicBarrierDemo {
                 }
             }, "thread_" + i).start();
         });
-
-        Thread.sleep(10000);
     }
 }
