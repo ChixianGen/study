@@ -1,0 +1,4 @@
+#应用配置
+resources:
+  # 日志打印的基础扫描包
+  basePackage: com.cxg.study.log.test

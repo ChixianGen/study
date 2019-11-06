@@ -31,7 +31,7 @@ public class ParamTransferDemo {
      * 执行todo()方法时，传递的是obj对象在栈中的引用值；是值传递；
      */
     private static void refDataType() {
-        Obj obj = new Obj("A");
+        Obj obj = new Obj("OrderDTO");
         System.out.printf("todo()方法调用前的对象：【%s】，hashcode：【%s】\n", obj, obj.hashCode());
         // 调用todo()方法时，复制一份obj变量指向堆内存对象的内存地址值，传入给方法的current变量，属于值传递；
         todo(obj);

@@ -26,7 +26,7 @@ public class ExchangeDemo {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }, "===A===").start();
+        }, "===OrderDTO===").start();
 
         new Thread(() -> {
             Object obj = new Object();

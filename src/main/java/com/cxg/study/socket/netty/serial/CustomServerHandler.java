@@ -3,6 +3,7 @@ package com.cxg.study.socket.netty.serial;   // Administrator 于 2019/8/7 创�
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
  * 自定义服务端处理器；处理具体数据
@@ -16,4 +17,5 @@ public class CustomServerHandler extends ChannelInboundHandlerAdapter {
         data.setSalary(data.getSalary() + 1000);
         ctx.writeAndFlush(data).addListener(ChannelFutureListener.CLOSE);
     }
+
 }

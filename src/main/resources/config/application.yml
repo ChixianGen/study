@@ -3,6 +3,9 @@ server:
 
 # 消息队列相关配置
 spring:
+  profiles:
+    active: dev
+
   redis:
     host: 192.168.0.14
     password: 123456
@@ -15,7 +18,14 @@ spring:
   jms:
     pub-sub-domain: true   # false=Queue true=Topic  默认为：false
 
+
 myqueue: boot-activemq-queue # 自定义队列名称
 mytopic: boot-activemq-topic # 自定义主题名称
 
 ###########
+#应用配置
+resources:
+  # log文件写入地址
+  logDir: /opt/logs
+  # 应用名称
+  appName: spring-boot-study

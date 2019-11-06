@@ -33,7 +33,12 @@ class NettyClient {
                     .handler(new ClientInitializer()) // 自定义管道初始化器
                     .connect(hostname, port).sync() // 连接服务端
                     .addListener(future -> {
-                        System.out.println("=-=-=-=-=-=客户端连接成功=-=-=-=-=-=");
+                        if (future.isSuccess()) {
+                            System.out.println("=-=-=-=-=-=客户端连接成功=-=-=-=-=-=");
+                        } else {
+                            // 打印异常堆栈
+                            future.cause().printStackTrace();
+                        }
                     })
                     .channel().closeFuture().sync() // 监听管道关闭
                     .addListener(future -> {

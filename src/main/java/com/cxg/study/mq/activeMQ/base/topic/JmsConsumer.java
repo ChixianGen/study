@@ -13,7 +13,7 @@ public class JmsConsumer {
 
     public static void main(String[] args) throws JMSException, InterruptedException {
 
-        System.out.println("A-消费者");
+        System.out.println("OrderDTO-消费者");
 //        System.out.println("B-消费者"); // 启动2次，模拟2个消费者
 
         // 1.创建连接工程；用户名和密码默认；
@@ -36,7 +36,7 @@ public class JmsConsumer {
 
         // b.异步非阻塞（监听回调）方式来处理消息；
         receiveMsg_2(consumer);
-        
+
         consumer.close();
         session.close();
         connection.close();
@@ -102,7 +102,7 @@ public class JmsConsumer {
             Thread.sleep(1000);
             // 阻塞等待；
             TextMessage receive = (TextMessage) consumer.receive();
-            
+
             // 指定等待一定时间，无消息就退出；
 //            TextMessage receive = (TextMessage) consumer.receive(3000L);
             if (null != receive) {

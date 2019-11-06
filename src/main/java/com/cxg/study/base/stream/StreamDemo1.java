@@ -25,7 +25,7 @@ public class StreamDemo1 {
                         System.out.println("p" + value);
                     }
                 })
-                .peek(x -> System.out.print("A" + x))
+                .peek(x -> System.out.print("OrderDTO" + x))
                 .limit(3)
                 .peek(x -> System.out.print("B" + x))
                 .forEach(x -> System.out.print("C" + x + "\n"));
@@ -33,7 +33,7 @@ public class StreamDemo1 {
 
     private static void test1() {
         IntStream.range(1, 10)
-                .peek(x -> System.out.println("A" + x))
+                .peek(x -> System.out.println("OrderDTO" + x))
                 .skip(6)
                 .peek(x -> System.out.print("B" + x))
                 .forEach(x -> System.out.print("C" + x + "\n"));

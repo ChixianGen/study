@@ -1,16 +1,20 @@
 package com.cxg.study.socket.netty.serial;   // Administrator 于 2019/8/7 创建;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.net.InetSocketAddress;
 
 public class SerialServerDemo {
     public static void main(String[] args) {
@@ -32,7 +36,9 @@ class NettyServer {
                 .option(ChannelOption.SO_BACKLOG, 1024)
                 .handler(new LoggingHandler(LogLevel.INFO)) // 添加日志处理器
                 .childHandler(new ServerChannelInitializer())
-                .bind(port).sync() // 绑定端口，等待客户端的连接
+                .localAddress(new InetSocketAddress("localhost", 8080))
+                // 绑定端口，等待客户端的连接
+                .bind(port).sync()
                 .addListener(future -> {
                     System.out.println("=-=-=-=-=-=服务端端口绑定成功，等待连接=-=-=-=-=-=");
                 })
@@ -52,7 +58,7 @@ class NettyServer {
         @Override
         protected void initChannel(SocketChannel socketChannel) throws Exception {
             socketChannel.pipeline()
-//                    .addLast(new StringDecoder())
+                    .addLast(new StringDecoder())
 //                    .addLast(new StringEncoder())
                     .addLast(MarshallingCodeFactory.buildMarshallingDecode())
                     .addLast(MarshallingCodeFactory.buildMarshallingEncode())
