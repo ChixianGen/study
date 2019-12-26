@@ -12,12 +12,14 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.ReferenceCountUtil;
 
+import java.util.Scanner;
+
 public class Client {
     public static void main(String[] args) {
-        new Client().clientStart();
+        new Client().clientStart(9000);
     }
 
-    private void clientStart() {
+    private void clientStart(int port) {
         EventLoopGroup workers = new NioEventLoopGroup();
         Bootstrap b = new Bootstrap();
         b.group(workers)
@@ -37,13 +39,16 @@ public class Client {
                     }
                 });
         try {
-            ChannelFuture f = b.connect("127.0.0.1", 8888).sync();
+            ChannelFuture f = b.connect("192.168.0.14", port).sync();
+            Scanner sc = new Scanner(System.in);
+            while (sc.hasNextLine()) {
+                f.channel().writeAndFlush(sc.nextLine() + "$");
+            }
             // 尾部添加自定义分隔符；
-            f.channel().writeAndFlush("你好$");
-            f.channel().writeAndFlush("今天是星期三$");
-            f.channel().writeAndFlush("晚上去健身房锻炼$");
+//            f.channel().writeAndFlush("你好$");
+//            f.channel().writeAndFlush("今天是星期三$");
+//            f.channel().writeAndFlush("晚上去健身房锻炼$");
 
-            Thread.sleep(1000);
             f.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -56,11 +61,6 @@ public class Client {
 }
 
 class ClientHandler extends ChannelInboundHandlerAdapter {
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-//        ctx.writeAndFlush("我是客户端字符串");
-//        ctx.writeAndFlush(new Gson().toJson(new Person(19,"client-cxg", 16888)));
-    }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
