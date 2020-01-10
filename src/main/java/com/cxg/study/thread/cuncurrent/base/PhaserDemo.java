@@ -21,7 +21,12 @@ public class PhaserDemo {
     public static void main(String[] args) {
 //        arriveAndAwaitAdvance();
 
-        final Phaser phaser = new Phaser();
+        final Phaser phaser = new Phaser() {
+            @Override
+            protected boolean onAdvance(int phase, int registeredParties) {
+                return super.onAdvance(phase, registeredParties);
+            }
+        };
         arriveAndDeregister(phaser);
     }
 
@@ -30,11 +35,11 @@ public class PhaserDemo {
      */
     private static void arriveAndDeregister(Phaser phaser) {
         phaser.bulkRegister(NUM + 1);
-        for (int i = 0; i < NUM; i++) {
+        for (int i = 0; i < NUM + 1; i++) {
             new NormalTask(phaser, "t_" + i).start();
         }
 
-        new UnNormalTask(phaser, "t_e").start();
+//        new UnNormalTask(phaser, "t_e").start();
     }
 
     /**
@@ -78,16 +83,14 @@ public class PhaserDemo {
             log.debug("{} 执行 aaaaa 方法", name);
             SleepUtils.workingByBlock((long) RANDOM.nextInt(3000));
             int i1 = phaser.arriveAndAwaitAdvance();
-            log.debug("{} 的到达值 {} {}", name, i1, phaser.getPhase());
-            log.debug("{} phaser 剩余的注册parties数量：{}", name, phaser.getRegisteredParties());
+            log.debug("{} 的到达值 {} {}  phaser 剩余的注册parties数量：{}", name, i1, phaser.getPhase(), phaser.getRegisteredParties());
         }
 
         private void bbbbb(String name) {
             log.debug("{} 执行 bbbbb 方法", name);
             SleepUtils.workingByBlock((long) RANDOM.nextInt(3000));
             int i1 = phaser.arriveAndAwaitAdvance();
-            log.debug("{} 的到达值 {} {}", name, i1, phaser.getPhase());
-            log.debug("{} phaser 剩余的注册parties数量：{}", name, phaser.getRegisteredParties());
+            log.debug("{} 的到达值 {} {}  phaser 剩余的注册parties数量：{}", name, i1, phaser.getPhase(), phaser.getRegisteredParties());
         }
 
         private void ccccc(String name) throws RuntimeException {
@@ -114,31 +117,42 @@ public class PhaserDemo {
             String name = getName();
             aaaaa(name);
             bbbbb(name);
-            ccccc(name);
+            try {
+                ccccc(name);
+            } catch (RuntimeException e) {
+                log.debug("{} 捕获异常：{}", name, e.toString());
+
+                /**
+                 * 这个方法表示当前线程到达了这个状态，但由于发生异常，注销了当前线程；
+                 * 所以其他线程不会阻塞；
+                 */
+                phaser.arriveAndDeregister();
+                log.debug("{} 异常注销后 phaser 剩余的注册parties数量：{}", name, phaser.getRegisteredParties());
+            }
         }
 
         private void aaaaa(String name) {
             log.debug("{} 执行 aaaaa 方法", name);
             SleepUtils.workingByBlock((long) RANDOM.nextInt(3000));
             int i1 = phaser.arriveAndAwaitAdvance();
-            log.debug("{} 的到达值 {} {}", name, i1, phaser.getPhase());
-            log.debug("{} phaser 剩余的注册parties数量：{}", name, phaser.getRegisteredParties());
+            log.debug("{} 的到达值 {} {}  phaser 剩余的注册parties数量：{}", name, i1, phaser.getPhase(), phaser.getRegisteredParties());
         }
 
         private void bbbbb(String name) {
             log.debug("{} 执行 bbbbb 方法", name);
             SleepUtils.workingByBlock((long) RANDOM.nextInt(3000));
             int i1 = phaser.arriveAndAwaitAdvance();
-            log.debug("{} 的到达值 {} {}", name, i1, phaser.getPhase());
-            log.debug("{} phaser 剩余的注册parties数量：{}", name, phaser.getRegisteredParties());
+            log.debug("{} 的到达值 {} {}  phaser 剩余的注册parties数量：{}", name, i1, phaser.getPhase(), phaser.getRegisteredParties());
         }
 
         private void ccccc(String name) {
+            if (name.equals("t_5")) {
+                throw new RuntimeException(name + " 发生异常退出");
+            }
             log.debug("{} 执行 ccccc 方法", name);
             SleepUtils.workingByBlock((long) RANDOM.nextInt(3000));
             int i1 = phaser.arriveAndAwaitAdvance();
-            log.debug("{} 的到达值 {} {}", name, i1, phaser.getPhase());
-            log.debug("{} phaser 剩余的注册parties数量：{}", name, phaser.getRegisteredParties());
+            log.debug("{} 的到达值 {} {}  phaser 剩余的注册parties数量：{}", name, i1, phaser.getPhase(), phaser.getRegisteredParties());
         }
     }
 }

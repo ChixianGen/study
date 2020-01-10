@@ -4,6 +4,7 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
@@ -91,6 +92,7 @@ class FinalHandler extends ChannelInboundHandlerAdapter {
 
         // 服务端响应完成，自动关闭连接；
 //        channelFuture.addListener(ChannelFutureListener.CLOSE);
+        ctx.channel().close();
 //        System.out.println("服务端响应客户端完成，关闭客户端连接");
     }
 

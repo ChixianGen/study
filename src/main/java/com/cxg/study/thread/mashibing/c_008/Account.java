@@ -6,6 +6,8 @@
 
 package com.cxg.study.thread.mashibing.c_008;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
 public class Account {
@@ -30,23 +32,34 @@ public class Account {
 	
 	
 	public static void main(String[] args) {
-		Account a = new Account();
-		new Thread(()->a.set("zhangsan", 100.0)).start();
-		
-		try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		Account a = new Account();
+//		new Thread(()->a.set("zhangsan", 100.0)).start();
+//
+//		try {
+//			TimeUnit.SECONDS.sleep(1);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//
+//		System.out.println(a.getBalance("zhangsan"));
+//
+//		try {
+//			TimeUnit.SECONDS.sleep(2);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//
+//		System.out.println(a.getBalance("zhangsan"));
 
-		System.out.println(a.getBalance("zhangsan"));
-		
-		try {
-			TimeUnit.SECONDS.sleep(2);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println(a.getBalance("zhangsan"));
+		LinkedList<String> list = new LinkedList();
+//		ArrayList<String> list = new ArrayList<>();
+		list.add(0,"hello");
+		list.add(1,"world");
+		list.add(0,"cxg");
+//		list.add("world");
+//		list.add("cxg");
+		list.getFirst();
+		list.getLast();
+		System.out.println(list.get(0));
 	}
 }

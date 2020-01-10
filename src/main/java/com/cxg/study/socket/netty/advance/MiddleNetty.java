@@ -52,11 +52,12 @@ class MiddleNettyServer {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
 
         // 负责连接后的IO处理；
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        EventLoopGroup workerGroup = new NioEventLoopGroup(3);
         ServerBootstrap b = new ServerBootstrap();
 
         b.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
+//                .childOption(ChannelOption.CONNECT_TIMEOUT_MILLIS, 60)
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) {
@@ -77,8 +78,9 @@ class MiddleNettyServer {
                 });
         try {
             serverFuture = b.bind("192.168.0.14", port).sync();
-
-            serverFuture.channel().closeFuture().sync();
+            ChannelFuture channelFuture = serverFuture.channel().closeFuture();
+            channelFuture.addListener(ChannelFutureListener.CLOSE);
+            channelFuture.sync();
         } catch (InterruptedException e) {
         } finally {
             workerGroup.shutdownGracefully();
@@ -88,6 +90,7 @@ class MiddleNettyServer {
 }
 
 @Setter
+@ChannelHandler.Sharable
 class MiddleServerHandler extends ChannelInboundHandlerAdapter {
 
     private ChannelFuture clientFuture;
@@ -95,6 +98,12 @@ class MiddleServerHandler extends ChannelInboundHandlerAdapter {
 //    public MiddleServerHandler(ChannelFuture clientFuture) {
 //        this.clientFuture = clientFuture;
 //    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        super.channelInactive(ctx);
+//        ctx.close();
+    }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -114,7 +123,7 @@ class MiddleServerHandler extends ChannelInboundHandlerAdapter {
 //        ChannelFuture channelFuture = ctx.writeAndFlush(new Gson().toJson(person));
 
         // 服务端响应完成，自动关闭连接；
-//        channelFuture.addListener(ChannelFutureListener.CLOSE);
+        channelFuture.addListener(ChannelFutureListener.CLOSE);
 //        System.out.println("服务端响应客户端完成，关闭客户端连接");
     }
 
@@ -198,8 +207,9 @@ class MiddleClientHandler extends ChannelInboundHandlerAdapter {
 //            System.out.printf("服务端响应数据：【%s】\n", person);
             System.out.printf("MiddleClientHandler 接收 FinalHandler 响应数据：【%s】\n", string);
             context.channel().writeAndFlush(string + "$");
+            ctx.channel().close();
         } finally {
-//            ReferenceCountUtil.release(msg);
+            ReferenceCountUtil.release(msg);
         }
     }
 }
