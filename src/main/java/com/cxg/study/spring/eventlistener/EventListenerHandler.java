@@ -1,6 +1,7 @@
 package com.cxg.study.spring.eventlistener;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
@@ -26,5 +27,11 @@ public class EventListenerHandler {
         TestInfo testInfo = (TestInfo) event.getSource();
         log.warn("testInfo: {}", testInfo);
         log.warn("TestEvent事件：{}", event.toString());
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void onApplicationReady(ApplicationReadyEvent event) {
+//        BeanDefinitionEntity bean = event.getApplicationContext().getBean(BeanDefinitionEntity.class);
+//        log.warn("ApplicationReadyEvent：{}", beanDefinitionEntity.hello("ApplicationReadyEvent"));
     }
 }

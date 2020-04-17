@@ -9,12 +9,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class StudyApplicationTests {
 
-    public static void main(String[] args) {
-        System.out.println(123);
-    }
-
     @Test
     public void contextLoads() {
+
     }
 
 }

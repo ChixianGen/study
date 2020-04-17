@@ -1,5 +1,8 @@
 package com.cxg.study.redis;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -8,8 +11,11 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.io.Serializable;
 
 /**
  * @ClassName: RedisConfig
@@ -45,27 +51,27 @@ public class RedisConfig {
      * @return
      */
     @Bean(value = "myRedisTemplate")
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    public RedisTemplate<String, Serializable> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         LettuceConnectionFactory connectionFactory = (LettuceConnectionFactory) redisConnectionFactory;
         connectionFactory.setDatabase(10);
 
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        RedisTemplate<String, Serializable> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
-        connectionFactory.resetConnection();
+//        connectionFactory.resetConnection();
 
         //使用StringRedisSerializer来序列化和反序列化redis的key值
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
 
         // 使用自定义fastjson序列化工具来序列化和反序列化redis的value值
-        FastJsonRedisSerializer serializer = new FastJsonRedisSerializer();
+//        FastJsonRedisSerializer serializer = new FastJsonRedisSerializer();
 
         // 使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值
-//        Jackson2JsonRedisSerializer serializer = new Jackson2JsonRedisSerializer(Object.class);
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-//        mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-//        serializer.setObjectMapper(mapper);
+        Jackson2JsonRedisSerializer serializer = new Jackson2JsonRedisSerializer(Object.class);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        serializer.setObjectMapper(mapper);
 
         template.setValueSerializer(serializer);
         template.setHashValueSerializer(serializer);

@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <fastjson.version>1.2.44</fastjson.version>
+        <fastjson.version>1.2.67</fastjson.version>
         <marshalling.version>2.0.7.Final</marshalling.version>
     </properties>
 
@@ -24,6 +24,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
         <dependency>
@@ -78,7 +83,16 @@
             <version>${marshalling.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>28.2-jre</version>
+        </dependency>
 
         <dependency>
             <groupId>com.google.code.gson</groupId>

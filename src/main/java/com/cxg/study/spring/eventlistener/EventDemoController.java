@@ -1,5 +1,6 @@
 package com.cxg.study.spring.eventlistener;
 
+import com.cxg.study.spring.bean.definition.BeanDefinitionEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +18,16 @@ import java.time.LocalDateTime;
 @RequestMapping("event")
 public class EventDemoController {
 
+    @Autowired(required = false)
+    private BeanDefinitionEntity beanDefinitionEntity;
+
     @Autowired
     private ApplicationContext applicationContext;
+
+    @GetMapping("bean")
+    public String bean() {
+        return beanDefinitionEntity.getName() + " " + beanDefinitionEntity.hello("bean()");
+    }
 
     @GetMapping("order")
     public OrderEvent event() {

@@ -25,7 +25,7 @@ public class Singleton1 {
     }
 
     private void init() {
-        this.person = new Person();
+        person = new Person();
     }
 
     public static Singleton1 getInstance() {
@@ -58,7 +58,6 @@ public class Singleton1 {
         IntStream.rangeClosed(1, 10).forEach(n -> {
             new Thread(() -> {
                 Singleton1 instance = Singleton1.getInstance();
-                instance.person.getName();
                 Optional.of("线程【" + Thread.currentThread().getName() + "】获取的对象：" + instance)
                         .ifPresent(System.out::println);
                 countDownLatch.countDown();
